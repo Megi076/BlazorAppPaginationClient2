@@ -1,0 +1,21 @@
+﻿@inject NavigationManager NavigationManager
+@using System.Globalization
+
+<select @onchange="OnLanguageChanged" class="form-select w-auto" value="@CultureInfo.CurrentUICulture.Name">
+    <option value="en-US">English</option>
+    <option value="mk-MK">Македонски</option>
+    <option value="sr-RS">Srpski</option>
+</select>
+
+@code {
+    private Task OnLanguageChanged(ChangeEventArgs e)
+    {
+        var culture = e.Value?.ToString() ?? "en-US";
+        var currentUrl = NavigationManager.Uri;
+
+        var redirectUrl = $"/culture/setculture?culture={culture}&redirectUri={Uri.EscapeDataString(currentUrl)}";
+
+        NavigationManager.NavigateTo(redirectUrl, forceLoad: true);
+        return Task.CompletedTask;
+    }
+}
