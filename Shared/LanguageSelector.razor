@@ -16,6 +16,7 @@
         var redirectUrl = $"/culture/setculture?culture={culture}&redirectUri={Uri.EscapeDataString(currentUrl)}";
 
         NavigationManager.NavigateTo(redirectUrl, forceLoad: true);
+        StateHasChanged();  // Освежување на компонентата по промена на културата
         return Task.CompletedTask;
     }
 }
